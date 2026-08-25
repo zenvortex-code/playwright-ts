@@ -27,3 +27,13 @@ test('navigation menu', async ({ page }) => {
   await expect(page.getByRole('link', { name: 'CLI', exact: true })).toBeVisible();
   await expect(page.getByRole('link', { name: 'API', exact: true })).toBeVisible();
 });
+
+test('search docs', async ({ page }) => {
+  await page.goto('https://playwright.dev/');
+  // Click the search button
+  await page.getByLabel('Search').click();
+  // Type in search box
+  await page.getByPlaceholder('Search docs').fill('locators');
+  // Verify search results appear
+  await expect(page.getByRole('link', { name: /Locators/i }).first()).toBeVisible();
+});
